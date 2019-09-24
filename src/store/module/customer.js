@@ -1,4 +1,4 @@
-import http from '../http'
+import {post,get,post_array} from '../http'
 
 export default {
   namespaced:true,
@@ -38,16 +38,22 @@ export default {
       context.commit("resetVisible",false)
     },
     saveOrUpdate(context,customer){
-      return http
-      .post("/customer/saveOrUpdate",customer)
+      return post("/customer/saveOrUpdate",customer)
       .then((result)=>{
         context.commit("resetMsg",result.statusText)
         context.dispatch("findAll");
         context.dispatch("closeModal");
       })
     } ,
+    batchDelete({dispatch,commit},ids){
+      return post_array("/customer/batchDelete",{ids})
+      .then((result)=>{
+        commit("resetMsg",result.statusText)
+        dispatch("findAll")
+      })
+    },
     deleteById({dispatch,commit},id){
-      http.get("/customer/deleteById?id="+id)
+      get("/customer/deleteById?id="+id)
       .then((result)=>{
         commit("resetMsg",result.statusText);
         dispatch("findAll");
@@ -55,8 +61,7 @@ export default {
     },
     findAll(context){
       context.commit("resetLoaing",true)
-      http
-      .get("/customer/findAll")
+      get("/customer/findAll")
       .then((result)=>{
         // 将查询到的数据通过mutations设置到state中
         context.commit("resetList",result.data);
