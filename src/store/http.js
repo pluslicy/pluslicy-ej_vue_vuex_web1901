@@ -7,7 +7,6 @@ axios.defaults.headers.post["Content-Type"] = 'application/x-www-form-urlencoded
 axios.defaults.baseURL = 'http://134.175.100.63:6677';
 
 // 配置请求拦截
-
 axios.interceptors.request.use(function (config) {
   // 手动将参数转换为查询字符串，为了呼应设置Content-type = 'application/x-www-form-urlencoded;charset=UTF-8';
   if(config.method === "post"){
