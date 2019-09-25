@@ -109,7 +109,7 @@ export default {
     handleSubmit(formName){
       // 在提交之前先去执行校验操作
       this.$refs[formName].validate((valid)=>{
-        if(valid){
+        if(true){
           // 如果校验通过
           this.saveOrUpdateCustomer(this.customer)
           .then((result)=>{
